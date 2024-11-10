@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Load libraries
 
 library(tidyverse)
+library(ggplot2)
 
 ```
 
@@ -25,6 +26,23 @@ check_birthday = function(n) {
   birthdays = sample(1:365, size = n, replace = TRUE)
   return(length(unique(birthdays)) < n)
 }
+
+# Run simulations
+
+birthday_results = 
+  expand_grid(
+    n = 2:50,
+    iter = 1:10000
+  ) %>%
+  mutate(result = map_lgl(n, check_birthday))  %>%
+  group_by(n)  %>%
+  summarise(prob = mean(result))
+
+# Plot results
+
+ggplot(birthday_results, aes(x = n, y = prob)) + 
+  geom_line() +
+  labs(x = "Group Size", y = "Probability") 
 
 ```
 
