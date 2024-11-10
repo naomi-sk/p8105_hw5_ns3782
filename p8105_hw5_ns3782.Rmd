@@ -6,12 +6,25 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
+
 knitr::opts_chunk$set(echo = TRUE)
+
+# Load libraries
+
+library(tidyverse)
+
 ```
 
 ## Problem 1
 
 ```{r}
+
+# Define function to check for shared birthdays
+
+check_birthday = function(n) {
+  birthdays = sample(1:365, size = n, replace = TRUE)
+  return(length(unique(birthdays)) < n)
+}
 
 ```
 
