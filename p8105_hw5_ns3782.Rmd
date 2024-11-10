@@ -47,3 +47,41 @@ ggplot(birthday_results, aes(x = n, y = prob)) +
 ```
 
 
+
+## Problem 2
+
+```{r}
+
+# Create function to generate data and conduct t-test
+
+sim_t_test = function(n = 30, mu = 0, sigma = 5) {
+  
+  sim_data = tibble(
+    x = rnorm(n, mean = mu, sd = sigma)
+  )
+  
+# Perform t-test against null hypothesis mu = 0
+  
+  t_test_results = 
+    t.test(sim_data$x, mu = 0) %>%  
+    broom::tidy()                 
+  
+# Return results
+  
+  return(tibble(
+    mu_hat = mean(sim_data$x),
+    p_value = t_test_results$p.value
+  ))
+}
+
+```
+
+
+
+## Problem 3
+
+```{r}
+
+
+```
+
