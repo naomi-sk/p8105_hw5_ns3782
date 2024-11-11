@@ -156,6 +156,7 @@ ggplot(summary_stats, aes(x = true_mu)) +
   scale_color_manual(values = c("black", "skyblue"))
 
 ```
+
 No, the sample average of μ hat from rejected tests is not approximately equal to the true value of μ, especially when the true μ is small. This is because we only reject the null hypothesis (get p < 0.05) when we happen to get more extreme estimates by chance. So when we only look at these rejected tests, we're selecting for the larger estimates, which makes our average higher than the true value.
 However, we can see from the plot that when μ gets larger, the rejected-samples average (blue line) gets closer to the true value (black line). This happens because with large μ values, we reject H0 (the null) most of the time anyway, so we are including almost all samples in our average rather than just the more extreme ones.
 
