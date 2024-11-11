@@ -160,7 +160,7 @@ ggplot(summary_stats, aes(x = true_mu)) +
 No, the sample average of μ hat from rejected tests is not approximately equal to the true value of μ, especially when the true μ is small. This is because we only reject the null hypothesis (get p < 0.05) when we happen to get more extreme estimates by chance. So when we only look at these rejected tests, we're selecting for the larger estimates, which makes our average higher than the true value.
 However, we can see from the plot that when μ gets larger, the rejected-samples average (blue line) gets closer to the true value (black line). This happens because with large μ values, we reject H0 (the null) most of the time anyway, so we are including almost all samples in our average rather than just the more extreme ones.
 
-# Problem 3
+# Problem 3: Homicides in U.S. Cities
 
 ```{r}
 
@@ -186,9 +186,9 @@ homicide_data %>%
 
 ```
 
-The homicides dataset contains information about homicides in multiple U.S. cities. The dataset has `r nrow(homicides)` homicide cases with `r ncol(homicides)` variables: `r names(homicides)`. The cases span from `r min(homicides$reported_date)` through `r max(homicides$reported_date)`. The data covers `r n_distinct(homicides$city_state)` cities.
+The homicides dataset contains information about homicides in multiple U.S. cities. The dataset has `r nrow(homicide_data)` homicide cases with `r ncol(homicide_data)` variables: `r names(homicide_data)`. The cases span from `r min(homicide_data$reported_date)` through `r max(homicide_data$reported_date)`. The data covers `r n_distinct(homicide_data$city_state)` cities.
 
-The victim demographics include age (ranging from `r min(homicides$victim_age)` to `r max(homicides$victim_age)` years), sex (`r unique(homicides$victim_sex)`), and race (`r unique(homicides$victim_race)`). Case dispositions fall into the following categories: `r unique(homicides$disposition)`. Each case has geographic coordinates (latitude and longitude) and a unique identifier (uid).
+The victim demographics include age (ranging from `r min(homicide_data$victim_age)` to `r max(homicide_data$victim_age)` years), sex (`r unique(homicide_data$victim_sex)`), and race (`r unique(homicide_data$victim_race)`). Case dispositions fall into the following categories: `r unique(homicide_data$disposition)`. Each case has geographic coordinates (latitude and longitude) and a unique identifier (uid).
 
 ```{r}
 
