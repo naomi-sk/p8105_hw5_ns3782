@@ -46,8 +46,6 @@ ggplot(birthday_results, aes(x = n, y = prob)) +
 
 ```
 
-
-
 # Problem 2
 
 ```{r}
@@ -134,6 +132,8 @@ ggplot(summary_stats, aes(x = true_mu, y = power)) +
   ) 
 
 ```
+
+
 As the true value of μ increases (effect size gets larger), the power of the test increases. The relationship isn't linear - power increases rapidly at first (between μ = 1 and μ = 3), then levels off around μ = 4, eventually reaching close to 100% power. This means we're more likely to detect larger effects, and once the effect size is big enough (around μ = 4), we almost always reject the null hypothesis.
 
 ## Plot 2: Average estimate of μ hat plots
@@ -234,7 +234,7 @@ unsolved_prop_cities
 
 ```
 
-## Plot
+## Plot: Proportion of Unsolved Homicides by City
 
 ```{r}
 
