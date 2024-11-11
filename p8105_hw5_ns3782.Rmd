@@ -164,6 +164,25 @@ However, we can see from the plot that when μ gets larger, the rejected-samples
 
 ```{r}
 
+# Load CSV data
+
+homicide_data <- 
+  read_csv("homicide-data.csv") 
+
+# Create city_state variable and summarise homicides
+
+homicide_data <- homicide_data %>%
+  mutate(city_state = str_c(city, ", ", state)) 
+
+# Summarise homicides
+
+homicide_data %>%
+  group_by(city_state) %>%
+  summarise(
+    total_homicides = n(),
+    unsolved_homicides = sum(disposition %in% c("Closed without arrest", "Open/No arrest")),
+    solved_homicides = sum(disposition == "Closed by arrest")
+  )
 
 ```
 
