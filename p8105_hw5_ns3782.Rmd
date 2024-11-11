@@ -16,7 +16,7 @@ library(ggplot2)
 
 ```
 
-## Problem 1
+# Problem 1
 
 ```{r}
 
@@ -48,7 +48,7 @@ ggplot(birthday_results, aes(x = n, y = prob)) +
 
 
 
-## Problem 2
+# Problem 2
 
 ```{r}
 
@@ -86,12 +86,37 @@ results_mu0 =
   unnest(results) %>%
   select(iter, estimate, p.value) 
 
+# Repeat for μ = {1,2,3,4,5,6}
+
+results_other = 
+  expand_grid(
+    iter = 1:nsims,
+    true_mu = c(1, 2, 3, 4, 5, 6)
+  ) %>% 
+  mutate(
+    results = map(true_mu, function(x) sim_test(n, mu_val = x, sigma))
+  ) %>% 
+  unnest(results) %>%
+  select(iter, true_mu, estimate, p.value) 
+
+```
+
+## Plot 1: Power vs True value of μ
+
+```{r}
+
+# Add all our simulation results in one dataset
+
+all_results = bind_rows(
+  results_mu0 %>% mutate(true_mu = 0),  
+  results_other                          
+)
+
 
 ```
 
 
-
-## Problem 3
+# Problem 3
 
 ```{r}
 
