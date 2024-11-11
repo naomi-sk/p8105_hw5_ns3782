@@ -186,9 +186,9 @@ homicide_data %>%
 
 ```
 
-The homicides dataset contains information about homicides in multiple U.S. cities. The dataset has `r nrow(homicide_data)` homicide cases with `r ncol(homicide_data)` variables: `r names(homicide_data)`. The cases span from `r min(homicide_data$reported_date)` through `r max(homicide_data$reported_date)`. The data covers `r n_distinct(homicide_data$city_state)` cities.
+"The homicides dataset contains information about multiple U.S. cities. The dataset has `r nrow(homicide_data)` homicide cases with `r ncol(homicide_data)` variables: `r names(homicide_data)`. The cases span from `r as.Date(min(homicide_data$reported_date), format = '%Y%m%d')` through `r as.Date(max(homicide_data$reported_date), format = '%Y%m%d')`. 
 
-The victim demographics include age (ranging from `r min(homicide_data$victim_age)` to `r max(homicide_data$victim_age)` years), sex (`r unique(homicide_data$victim_sex)`), and race (`r unique(homicide_data$victim_race)`). Case dispositions fall into the following categories: `r unique(homicide_data$disposition)`. Each case has geographic coordinates (latitude and longitude) and a unique identifier (uid).
+The data covers `r n_distinct(homicide_data$city_state)` cities. The victim demographics include age (ranging from `r min(homicide_data$victim_age)` to `r max(homicide_data$victim_age)` years), sex (`r unique(homicide_data$victim_sex)`), and race (`r unique(homicide_data$victim_race)`). Case dispositions fall into three categories: `r unique(homicide_data$disposition)`."
 
 ```{r}
 
@@ -226,5 +226,26 @@ unsolved_prop_cities <- homicide_data %>%
 # Proportion of unsolved homicides for all cities
 
 unsolved_prop_cities
+
+
+```
+
+## Plot
+
+```{r}
+
+# Plot showing proportion of unsolved homicides for all cities
+
+unsolved_prop_cities %>%
+ mutate(city_state = reorder(city_state, estimate)) %>%
+ ggplot(aes(x = city_state, y = estimate)) +
+ geom_point() +
+ geom_errorbar(aes(ymin = conf.low, ymax = conf.high)) +
+ coord_flip() +
+ labs(
+   x = "City",
+   y = "Proportion of Unsolved Homicides",
+   title = "Proportion of Unsolved Homicides by City"
+ )
 
 ```
