@@ -189,3 +189,23 @@ homicide_data %>%
 The homicides dataset contains information about homicides in multiple U.S. cities. The dataset has `r nrow(homicides)` homicide cases with `r ncol(homicides)` variables: `r names(homicides)`. The cases span from `r min(homicides$reported_date)` through `r max(homicides$reported_date)`. The data covers `r n_distinct(homicides$city_state)` cities.
 
 The victim demographics include age (ranging from `r min(homicides$victim_age)` to `r max(homicides$victim_age)` years), sex (`r unique(homicides$victim_sex)`), and race (`r unique(homicides$victim_race)`). Case dispositions fall into the following categories: `r unique(homicides$disposition)`. Each case has geographic coordinates (latitude and longitude) and a unique identifier (uid).
+
+```{r}
+
+# Estimate the proportion of homicides that are unsolved in Baltimore
+
+baltimore_unsolved <- homicide_data %>%
+  filter(city_state == "Baltimore, MD") %>%
+  summarize(
+    unsolved = sum(disposition %in% c("Closed without arrest", "Open/No arrest")),
+    n = n()
+  ) %>%
+  with(prop.test(unsolved, n)) %>%
+  broom::tidy() %>%
+  select(estimate, conf.low, conf.high)
+
+# Display proportion of homicides that are unsolved in Baltimore
+
+baltimore_unsolved
+
+```
