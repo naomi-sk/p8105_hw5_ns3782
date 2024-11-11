@@ -208,4 +208,23 @@ baltimore_unsolved <- homicide_data %>%
 
 baltimore_unsolved
 
+# Estimate the proportion of homicides that are unsolved for all cities
+
+unsolved_prop_cities <- homicide_data %>%
+  group_by(city_state) %>%
+  summarise(
+    unsolved = sum(disposition %in% c("Closed without arrest", "Open/No arrest")),
+    n = n()
+  ) %>%
+  mutate(
+    test_results = map2(unsolved, n, ~prop.test(x = .x, n = .y)),
+    tidy_results = map(test_results, broom::tidy)
+  ) %>%
+  unnest(tidy_results) %>%
+  select(city_state, estimate, conf.low, conf.high)
+
+# Proportion of unsolved homicides for all cities
+
+unsolved_prop_cities
+
 ```
