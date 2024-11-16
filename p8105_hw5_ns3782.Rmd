@@ -46,6 +46,9 @@ ggplot(birthday_results, aes(x = n, y = prob)) +
 
 ```
 
+
+The plot shows a smooth, S-shaped curve that shows how the probability of shared birthdays increases with group size. Starting from nearly zero probability with very small groups, the curve rises steeply around group sizes of 20-30 people, reaching a 50% chance of shared birthdays at about 23 people. The slope of probability per group size appears to be the highest from a group size of 10 to 30, until plateauing near 100% with around 50 people in the group. While it may be expected that a much larger group for shared birthdays to be likely is necessary, the simulation and corresponding plot shows that even relatively small groups have surprisingly high probabilities of shared birthday matches.
+
 # Problem 2
 
 ```{r}
